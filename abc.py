@@ -29,8 +29,7 @@ class nHairToolset(QtGui.QMainWindow):
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setFixedSize(windowDimensions[0], windowDimensions[1])
         # style setup
-        style = QtGui.QStyleFactory.create('plastique')
-        self.setStyle(style)
+        self.style = QtGui.QStyleFactory.create('plastique')
 
         # add layout and widgets
         self.createLayout()
@@ -52,22 +51,26 @@ class nHairToolset(QtGui.QMainWindow):
         self.centerWidget.setLayout(self.mainLayout)
         # create inner tab
         self.innerTabs = QtGui.QTabWidget(self.centerWidget)
+        self.innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
         self.mainLayout.addWidget(self.innerTabs)
         # first Tab
-        font = QtGui.QFont()
-        font.setBold(True)
         self.mainControlsTab = QtGui.QWidget(self.innerTabs)
-        self.innerTabs.setFont(font)
         self.innerTabs.addTab(self.mainControlsTab, 'Main Functions')
-        self.mainControlsTab.setStyleSheet('background-color:red')
 
+        self.mainControlsLayout = QtGui.QVBoxLayout(self.mainControlsTab)
+        self.mainControlsTab.setLayout(self.mainControlsLayout )
+        self.rigFxGrpBox = self.createGroupBox('RigFx Tools', self.mainControlsLayout)
+        self.mainControlsLayout.addWidget(self.rigFxGrpBox)
+
+        # second tab
         self.secondaryControlsTab = QtGui.QWidget(self.innerTabs)
         self.innerTabs.addTab(self.secondaryControlsTab, 'Secondary')
-        self.innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
-        # create tabs
 
 
-
+    def createGroupBox(self, title, parentItem):
+        grpBox = QtGui.QGroupBox(title)
+        grpBox.setStyle(self.style)
+        return grpBox
 
 # luanch window
 if __name__ == '__main__':
