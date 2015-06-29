@@ -105,16 +105,16 @@ class nHairToolset(QtGui.QMainWindow):
         parentLayout.addWidget(self.updateSetsBtn)
         parentLayout.addWidget(self.motionMultBtn)
 
-    def createNucleusControls(self):
-        self.nucleusGroupBox = self.createGroupBox('Nucleus', self.mainControlsLayout)
-        self.nucleusGroupBoxLayout = QtGui.QVBoxLayout()
-        self.nucleusGroupBox.setLayout(self.nucleusGroupBoxLayout)
-        # create state controls
-        nullWidget = QtGui.QWidget()
-        stateLayout = QtGui.QHBoxLayout()
-        self.stateOnRadioButton = QtGui.QRadioButton
-        
-        nullWidget.setLayout(stateLayout)
+    #def createNucleusControls(self):
+    #    self.nucleusGroupBox = self.createGroupBox('Nucleus', self.mainControlsLayout)
+    #    self.nucleusGroupBoxLayout = QtGui.QVBoxLayout()
+    #    self.nucleusGroupBox.setLayout(self.nucleusGroupBoxLayout)
+    #    # create state controls
+    #    nullWidget = QtGui.QWidget()
+    #    stateLayout = QtGui.QHBoxLayout()
+    #    self.stateOnRadioButton = QtGui.QRadioButton
+    #
+    #    nullWidget.setLayout(stateLayout)
 
 
 # luanch window
