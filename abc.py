@@ -53,24 +53,69 @@ class nHairToolset(QtGui.QMainWindow):
         self.innerTabs = QtGui.QTabWidget(self.centerWidget)
         self.innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
         self.mainLayout.addWidget(self.innerTabs)
+
         # first Tab
         self.mainControlsTab = QtGui.QWidget(self.innerTabs)
         self.innerTabs.addTab(self.mainControlsTab, 'Main Functions')
-
         self.mainControlsLayout = QtGui.QVBoxLayout(self.mainControlsTab)
+        self.mainControlsLayout.setSpacing(2)
+        self.mainControlsLayout.setAlignment(QtCore.Qt.AlignTop)
         self.mainControlsTab.setLayout(self.mainControlsLayout )
-        self.rigFxGrpBox = self.createGroupBox('RigFx Tools', self.mainControlsLayout)
-        self.mainControlsLayout.addWidget(self.rigFxGrpBox)
-
+        # rigFix options
+        self.rigFxGrpBox = self.createRigFixGroupBox()
+        self.rigFixNameField = self.createLabeledNameField('Name: ', self.rigFxLayout)
+        self.createRigFxButtons(self.rigFxLayout)
         # second tab
         self.secondaryControlsTab = QtGui.QWidget(self.innerTabs)
         self.innerTabs.addTab(self.secondaryControlsTab, 'Secondary')
 
+    def createRigFixGroupBox(self):
+        rigFxBox = self.createGroupBox('RigFx Tools', self.mainControlsLayout)
+        rigFxBox.setFixedSize(200,180)
+        self.rigFxLayout = QtGui.QVBoxLayout()
+        self.rigFxLayout.setAlignment(QtCore.Qt.AlignTop)
+        rigFxBox.setLayout(self.rigFxLayout)
+        self.rigFxName= QtGui.QLabel('Name:')
+        return rigFxBox
 
-    def createGroupBox(self, title, parentItem):
+    def createGroupBox(self, title, parentLayout):
         grpBox = QtGui.QGroupBox(title)
         grpBox.setStyle(self.style)
+        parentLayout.addWidget(grpBox)
         return grpBox
+
+    def createLabeledNameField(self, labelText, parentLayout):
+        # create horizontal layout to fit both items
+        holderWidget = QtGui.QWidget()
+        holderLayout = QtGui.QHBoxLayout(holderWidget)
+        holderWidget.setLayout(holderLayout)
+        # create actual the fields
+        label = QtGui.QLabel(labelText)
+        nameField = QtGui.QLineEdit()
+        holderLayout.addWidget(label)
+        holderLayout.addWidget(nameField)
+        parentLayout.addWidget(holderWidget)
+        return nameField
+
+    def createRigFxButtons(self, parentLayout):
+        self.buildRigFxBtn = QtGui.QPushButton('Build RigFx')
+        self.updateSetsBtn = QtGui.QPushButton('Update Sets')
+        self.motionMultBtn = QtGui.QPushButton('MotionMultiplier')
+        parentLayout.addWidget(self.buildRigFxBtn)
+        parentLayout.addWidget(self.updateSetsBtn)
+        parentLayout.addWidget(self.motionMultBtn)
+
+    def createNucleusControls(self):
+        self.nucleusGroupBox = self.createGroupBox('Nucleus', self.mainControlsLayout)
+        self.nucleusGroupBoxLayout = QtGui.QVBoxLayout()
+        self.nucleusGroupBox.setLayout(self.nucleusGroupBoxLayout)
+        # create state controls
+        nullWidget = QtGui.QWidget()
+        stateLayout = QtGui.QHBoxLayout()
+        self.stateOnRadioButton = QtGui.QRadioButton
+        
+        nullWidget.setLayout(stateLayout)
+
 
 # luanch window
 if __name__ == '__main__':
