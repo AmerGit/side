@@ -54,14 +54,16 @@ class nHairToolset(QtGui.QMainWindow):
         self.innerTabs = QtGui.QTabWidget(self.centerWidget)
         self.mainLayout.addWidget(self.innerTabs)
         # first Tab
+        font = QtGui.QFont()
+        font.setBold(True)
         self.mainControlsTab = QtGui.QWidget(self.innerTabs)
+        self.innerTabs.setFont(font)
         self.innerTabs.addTab(self.mainControlsTab, 'Main Functions')
-        self.mainControlsTab.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.mainControlsTab.setStyleSheet('background-color:red')
 
-        # second Tab
         self.secondaryControlsTab = QtGui.QWidget(self.innerTabs)
         self.innerTabs.addTab(self.secondaryControlsTab, 'Secondary')
-        self.secondaryControlsTab.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
         # create tabs
 
 
