@@ -36,11 +36,13 @@ class nHairToolset(QtGui.QMainWindow):
         self.centerWindow()
         self.show()
 
+
     def centerWindow(self):
         framegeo = self.frameGeometry()
         center = QtGui.QDesktopWidget().availableGeometry().center()
         framegeo.moveCenter(center)
         self.move(framegeo.topLeft())
+
 
     def createLayout(self):
         # inner widget
@@ -49,6 +51,7 @@ class nHairToolset(QtGui.QMainWindow):
         # main layout for central widget
         self.mainLayout= QtGui.QVBoxLayout(self.centerWidget)
         self.centerWidget.setLayout(self.mainLayout)
+        self.mainLayout.setContentsMargins(0,0,0,0)
         # create inner tab
         self.innerTabs = QtGui.QTabWidget(self.centerWidget)
         self.innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
