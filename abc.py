@@ -13,39 +13,22 @@ def getMayaMainPtr():
 
 
 class nHairToolset(QtGui.QMainWindow):
-    def __init__(self, windowId, windowDimensions, parentWidget):
+    def __init__(self, windowId, windowTitle, windowDimensions):
         # check if window exists
         if cmds.window(windowId, exists=True):
             cmds.deleteUI(windowId)
 
-        # get shot info
-        self.job = os.environ['JOB']
-        self.shot = os.environ['SHOT']
-
         # initialize main window features
-        super(nHairToolset, self).__init__(parentWidget)
+        super(nHairToolset, self).__init__(getMayaMainPtr())
+
         self.setObjectName(windowId)
-        self.setWindowTitle('Hair Toolset [%s:%s]'%(self.job, self.shot))
+        self.setWindowTitle(windowTitle)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setFixedSize(windowDimensions[0], windowDimensions[1])
         # style setup
         self.style = QtGui.QStyleFactory.create('plastique')
 
         # add layout and widgets
-        self.createLayout()
-        self.centerWindow()
-        self.show()
-
-
-    def centerWindow(self):
-        framegeo = self.frameGeometry()
-        center = QtGui.QDesktopWidget().availableGeometry().center()
-        framegeo.moveCenter(center)
-        self.move(framegeo.topLeft())
-
-
-    def createLayout(self):
-        # inner widget
         self.centerWidget = QtGui.QWidget(self)
         self.setCentralWidget(self.centerWidget)
         # main layout for central widget
@@ -72,6 +55,14 @@ class nHairToolset(QtGui.QMainWindow):
         self.secondaryControlsTab = QtGui.QWidget(self.innerTabs)
         self.innerTabs.addTab(self.secondaryControlsTab, 'Secondary')
 
+
+    def centerWindow(self):
+        framegeo = self.frameGeometry()
+        center = QtGui.QDesktopWidget().availableGeometry().center()
+        framegeo.moveCenter(center)
+        self.move(framegeo.topLeft())
+
+
     def createRigFixGroupBox(self):
         rigFxBox = self.createGroupBox('RigFx Tools', self.mainControlsLayout)
         rigFxBox.setFixedSize(200,180)
@@ -81,11 +72,13 @@ class nHairToolset(QtGui.QMainWindow):
         self.rigFxName= QtGui.QLabel('Name:')
         return rigFxBox
 
+
     def createGroupBox(self, title, parentLayout):
         grpBox = QtGui.QGroupBox(title)
         grpBox.setStyle(self.style)
         parentLayout.addWidget(grpBox)
         return grpBox
+
 
     def createLabeledNameField(self, labelText, parentLayout):
         # create horizontal layout to fit both items
@@ -99,6 +92,7 @@ class nHairToolset(QtGui.QMainWindow):
         holderLayout.addWidget(nameField)
         parentLayout.addWidget(holderWidget)
         return nameField
+
 
     def createRigFxButtons(self, parentLayout):
         self.buildRigFxBtn = QtGui.QPushButton('Build RigFx')
@@ -114,7 +108,7 @@ class nHairToolset(QtGui.QMainWindow):
     #    self.nucleusGroupBox.setLayout(self.nucleusGroupBoxLayout)
     #    # create state controls
     #    nullWidget = QtGui.QWidget()
-    #    stateLayout = QtGui.QHBoxLayout()
+    #    stateLa   yout = QtGui.QHBoxLayout()
     #    self.stateOnRadioButton = QtGui.QRadioButton
     #
     #    nullWidget.setLayout(stateLayout)
@@ -122,5 +116,11 @@ class nHairToolset(QtGui.QMainWindow):
 
 # luanch window
 if __name__ == '__main__':
-    # get job info
-    nHairToolset('someWin', [600,800], getMayaMainPtr())
+    # get shot info
+    # job = os.environ['JOB']
+    # shot = os.environ['SHOT']
+    # title = 'Hair Toolset %s%s'%(job, %shot) 
+    title = 'Hair Toolset'
+    nHairWindow = nHairToolset('someWin',title, [600,800])
+    nHairWindow.centerWindow()
+    nHairWindow.show()
