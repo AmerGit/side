@@ -28,25 +28,24 @@ class nHairToolset(QtGui.QMainWindow):
         self.setCentralWidget(centerWidget)
 
         # main layout for central widget
-        mainLayout= QtGui.QVBoxLayout(centerWidget)
-        centerWidget.setLayout(mainLayout)
-        mainLayout.setContentsMargins(0,0,0,0)
+        centerWidget.setLayout(QtGui.QVBoxLayout(centerWidget))
+        centerWidget.layout().setContentsMargins(0,0,0,0)
         # create inner tab
         innerTabs= QtGui.QTabWidget(centerWidget)
         innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
-        mainLayout.addWidget(innerTabs)
+        centerWidget.layout().addWidget(innerTabs)
 
         # first Tab
         mainControlsTab = QtGui.QWidget(innerTabs)
         innerTabs.addTab(mainControlsTab, 'Main Functions')
-        self.mainControlsLayout = QtGui.QVBoxLayout(mainControlsTab)
-        self.mainControlsLayout.setSpacing(2)
-        self.mainControlsLayout.setAlignment(QtCore.Qt.AlignTop)
-        mainControlsTab.setLayout(self.mainControlsLayout )
+        mainControlsLayout = QtGui.QVBoxLayout(mainControlsTab)
+        mainControlsLayout.setSpacing(2)
+        mainControlsLayout.setAlignment(QtCore.Qt.AlignTop)
+        mainControlsTab.setLayout(mainControlsLayout )
         # rigFix options
         rigFxGrpBox = customGroupBox('RigFx Options', (180,150), 'plastique', 0, 0)
 
-        self.mainControlsLayout.addWidget((rigFxGrpBox))
+        mainControlsLayout.addWidget((rigFxGrpBox))
         rigFixNameField = self.createLabeledNameField('Name: ', 'Enter a RigFx name...')
         buildRigFxBtn = QtGui.QPushButton('Build RigFx')
         updateSetsBtn = QtGui.QPushButton('Update Sets')
@@ -58,8 +57,8 @@ class nHairToolset(QtGui.QMainWindow):
         rigFxGrpBox.layout().addWidget(motionMultBtn)
         rigFxGrpBox.layout().addStretch(True)
         # second tab
-        self.secondaryControlsTab = QtGui.QWidget(innerTabs)
-        innerTabs.addTab(self.secondaryControlsTab, 'Secondary')
+        secondaryControlsTab = QtGui.QWidget(innerTabs)
+        innerTabs.addTab(secondaryControlsTab, 'Secondary')
 
 
     def centerWindow(self):
@@ -81,7 +80,6 @@ class nHairToolset(QtGui.QMainWindow):
         holderLayout.addWidget(label)
         holderLayout.addWidget(nameField)
         return holderLayout
-
 
 
 class customGroupBox(QtGui.QGroupBox):
@@ -112,6 +110,6 @@ if __name__ == '__main__':
     # shot = os.environ['SHOT']
     # windowTitle = 'Hair Toolset %s%s'%(job, %shot)
     windowTitle = 'Hair Toolset'
-    nHairWindow = nHairToolset('someWin',windowTitle, [600,800])
+    nHairWindow = nHairToolset('nHairWindow',windowTitle, [600,800])
     nHairWindow.centerWindow()
     nHairWindow.show()
