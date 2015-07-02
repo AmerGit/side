@@ -14,10 +14,6 @@ def getMayaMainPtr():
 
 class nHairToolset(QtGui.QMainWindow):
     def __init__(self, windowId, windowTitle, windowDimensions):
-        # check if window exists
-        if cmds.window(windowId, exists=True):
-            cmds.deleteUI(windowId)
-
         # initialize main window features
         super(nHairToolset, self).__init__(getMayaMainPtr())
 
@@ -113,9 +109,7 @@ class nHairToolset(QtGui.QMainWindow):
     #
     #    nullWidget.setLayout(stateLayout)
 
-
-# luanch window
-if __name__ == '__main__':
+def launchUI():
     # get shot info
     # job = os.environ['JOB']
     # shot = os.environ['SHOT']
@@ -124,3 +118,8 @@ if __name__ == '__main__':
     nHairWindow = nHairToolset('someWin',title, [600,800])
     nHairWindow.centerWindow()
     nHairWindow.show()
+
+
+# luanch window
+if __name__ == '__main__':
+    launchUI()
