@@ -39,6 +39,8 @@ class nHairToolset(QtGui.QMainWindow):
         innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
         centerWidget.layout().addWidget(innerTabs)
 
+        print self.style
+        print type(self.style)
         # first Tab
         mainControlsTab = QtGui.QWidget()
         innerTabs.addTab(mainControlsTab, 'Main Functions')
@@ -47,7 +49,7 @@ class nHairToolset(QtGui.QMainWindow):
         mainControlsTab.setLayout(mainControlsLayout)
 
         # rigFix options group box
-        rigFxGrpBox = customGroupBox('RigFx Options', (180,150), 'plastique', 0, 0)
+        rigFxGrpBox = customGroupBox('RigFx Options', (180,150), self.style.objectName(), 0, 0)
         rigFixNameField = self.createLabeledNameField('Name: ', 'enter a rigFx name...')
         buildRigFxBtn = QtGui.QPushButton('Build RigFx')
         updateSetsBtn = QtGui.QPushButton('Update Sets')
@@ -60,7 +62,7 @@ class nHairToolset(QtGui.QMainWindow):
         rigFxGrpBox.layout().addStretch(True)
 
         # nHair groups options groupBox
-        nHairGroupsGrpBox = customGroupBox('nHair Groups', (200,300), 'plastique', 0, 0)
+        nHairGroupsGrpBox = customGroupBox('nHair Groups', (200,300), self.style.objectName(), 0, 0)
         nHairGroupList = QtGui.QListWidget()
         nHairGroupCreationField = self.createLabeledNameField('Group Name:', 'name your group...')
         nHairGroupCreateBtn = QtGui.QPushButton('Create')
@@ -75,7 +77,7 @@ class nHairToolset(QtGui.QMainWindow):
         nHairGroupsGrpBox.layout().addWidget(nHairGroupWindControlsBtn)
 
         # little nucleus groupbox
-        nucleusGroupBox = customGroupBox('Nucleus', (180, 36), 'plastique', 1, 1, QtGui.QHBoxLayout())
+        nucleusGroupBox = customGroupBox('Nucleus', (180, 48), self.style.objectName(), 0, 0, QtGui.QHBoxLayout())
         nucleusGroupBox.layout().setAlignment(QtCore.Qt.AlignHCenter)
         nucleusSateLabel = QtGui.QLabel('State: ')
         nucleusOnRadioBtn = QtGui.QRadioButton('On')
@@ -92,6 +94,7 @@ class nHairToolset(QtGui.QMainWindow):
         mainControlsLayout.addWidget(rigFxGrpBox)
         mainControlsLayout.addWidget(nHairGroupsGrpBox)
         mainControlsLayout.addWidget(nucleusGroupBox)
+
 
         # second tab
         secondaryControlsTab = QtGui.QWidget(innerTabs)
