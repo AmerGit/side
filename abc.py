@@ -22,7 +22,10 @@ class nHairToolset(QtGui.QMainWindow):
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setFixedSize(windowDimensions[0], windowDimensions[1])
         # style setup
-        self.style = QtGui.QStyleFactory.create('plastique')
+        #self.setStyle(QtGui.QStyleFactory.create('plastique'))
+        a = QtGui.QStyleFactory.create('plastique')
+        self.setStyle(a)
+        print a
 
         # add layout and widgets
         self.centerWidget = QtGui.QWidget(self)
@@ -71,7 +74,7 @@ class nHairToolset(QtGui.QMainWindow):
 
     def createGroupBox(self, title, parentLayout):
         grpBox = QtGui.QGroupBox(title)
-        grpBox.setStyle(self.style)
+        #grpBox.setStyle(self.style)
         parentLayout.addWidget(grpBox)
         return grpBox
 
@@ -109,7 +112,14 @@ class nHairToolset(QtGui.QMainWindow):
     #
     #    nullWidget.setLayout(stateLayout)
 
-def launchUI():
+
+# luanch window
+if __name__ == '__main__':
+    try:
+        nHairWindow.close()
+    except:
+        pass
+
     # get shot info
     # job = os.environ['JOB']
     # shot = os.environ['SHOT']
@@ -118,8 +128,3 @@ def launchUI():
     nHairWindow = nHairToolset('someWin',title, [600,800])
     nHairWindow.centerWindow()
     nHairWindow.show()
-
-
-# luanch window
-if __name__ == '__main__':
-    launchUI()
