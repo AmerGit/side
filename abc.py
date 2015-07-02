@@ -1,5 +1,8 @@
-from maya import cmds, OpenMaya, OpenMayaUI
-from PySide import QtGui, QtCore
+from maya import cmds
+from maya import OpenMaya
+from maya import OpenMayaUI
+from PySide import QtGui
+from PySide import QtCore
 from functools import partial
 import shiboken
 import os
@@ -29,7 +32,7 @@ class nHairToolset(QtGui.QMainWindow):
 
         # setup central widget to hold all elements
         centerWidget.setLayout(QtGui.QVBoxLayout(centerWidget))
-        centerWidget.layout().setContentsMargins(0,0,0,0)
+        #centerWidget.layout().setContentsMargins(0,0,0,0)
 
         # create the tabwidget to hold the tabs
         innerTabs = QtGui.QTabWidget()
@@ -40,14 +43,12 @@ class nHairToolset(QtGui.QMainWindow):
         mainControlsTab = QtGui.QWidget()
         innerTabs.addTab(mainControlsTab, 'Main Functions')
         mainControlsLayout = QtGui.QVBoxLayout()
-        mainControlsLayout.setSpacing(2)
         mainControlsLayout.setAlignment(QtCore.Qt.AlignTop)
-        mainControlsTab.setLayout(mainControlsLayout )
+        mainControlsTab.setLayout(mainControlsLayout)
 
-        # rigFix options
+        # rigFix options group box
         rigFxGrpBox = customGroupBox('RigFx Options', (180,150), 'plastique', 0, 0)
-        mainControlsLayout.addWidget((rigFxGrpBox))
-        rigFixNameField = self.createLabeledNameField('Name: ', 'Enter a RigFx name...')
+        rigFixNameField = self.createLabeledNameField('Name: ', 'enter a rigFx name...')
         buildRigFxBtn = QtGui.QPushButton('Build RigFx')
         updateSetsBtn = QtGui.QPushButton('Update Sets')
         motionMultBtn = QtGui.QPushButton('MotionMultiplier')
@@ -57,6 +58,40 @@ class nHairToolset(QtGui.QMainWindow):
         rigFxGrpBox.layout().addWidget(updateSetsBtn)
         rigFxGrpBox.layout().addWidget(motionMultBtn)
         rigFxGrpBox.layout().addStretch(True)
+
+        # nHair groups options groupBox
+        nHairGroupsGrpBox = customGroupBox('nHair Groups', (200,300), 'plastique', 0, 0)
+        nHairGroupList = QtGui.QListWidget()
+        nHairGroupCreationField = self.createLabeledNameField('Group Name:', 'name your group...')
+        nHairGroupCreateBtn = QtGui.QPushButton('Create')
+        nHairGroupDeleteBtn = QtGui.QPushButton('Delete')
+        nHairGroupControlsBtn = QtGui.QPushButton('Create Controls')
+        nHairGroupWindControlsBtn = QtGui.QPushButton('Create Wind Controls')
+        # add the nHair group elements to the corresponding groupbox
+        nHairGroupsGrpBox.layout().addWidget(nHairGroupList)
+        nHairGroupsGrpBox.layout().addLayout(nHairGroupCreationField)
+        nHairGroupsGrpBox.layout().addWidget(nHairGroupCreateBtn)
+        nHairGroupsGrpBox.layout().addWidget(nHairGroupControlsBtn)
+        nHairGroupsGrpBox.layout().addWidget(nHairGroupWindControlsBtn)
+
+        # little nucleus groupbox
+        nucleusGroupBox = customGroupBox('Nucleus', (180, 36), 'plastique', 1, 1, QtGui.QHBoxLayout())
+        nucleusGroupBox.layout().setAlignment(QtCore.Qt.AlignHCenter)
+        nucleusSateLabel = QtGui.QLabel('State: ')
+        nucleusOnRadioBtn = QtGui.QRadioButton('On')
+        nucleusOffRadioBtn = QtGui.QRadioButton('Off')
+        nucleusOnRadioBtn.setChecked(True)
+        # add widgets to groupBox
+        nucleusGroupBox.layout().addWidget(nucleusSateLabel)
+        nucleusGroupBox.layout().addItem(QtGui.QSpacerItem(20,2))
+        nucleusGroupBox.layout().addWidget(nucleusOnRadioBtn)
+        nucleusGroupBox.layout().addItem(QtGui.QSpacerItem(20,2))
+        nucleusGroupBox.layout().addWidget(nucleusOffRadioBtn)
+
+        # add main Widgets to the first tab
+        mainControlsLayout.addWidget(rigFxGrpBox)
+        mainControlsLayout.addWidget(nHairGroupsGrpBox)
+        mainControlsLayout.addWidget(nucleusGroupBox)
 
         # second tab
         secondaryControlsTab = QtGui.QWidget(innerTabs)
@@ -85,9 +120,14 @@ class nHairToolset(QtGui.QMainWindow):
 
 
 class customGroupBox(QtGui.QGroupBox):
-    def __init__(self, title=None, dimensions=None, style=None, spacing=None, margin=None, layout=QtGui.QVBoxLayout()):
+    def __init__(self, title=None, dimensions=None, style=None, spacing=None, margin=None, layout=None):
         super(customGroupBox, self).__init__()
-        self.setLayout(layout)
+
+        if layout:
+            self.setLayout(layout)
+        else:
+            self.setLayout(QtGui.QVBoxLayout())
+
         if title:
             self.setTitle(title)
         if dimensions:
