@@ -1,8 +1,5 @@
-from maya import cmds
-from maya import OpenMaya
-from maya import OpenMayaUI
-from PySide import QtGui
-from PySide import QtCore
+from maya import cmds, OpenMaya, OpenMayaUI
+from PySide import QtGui, QtCore
 from functools import partial
 import shiboken
 import os
