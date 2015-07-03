@@ -161,13 +161,15 @@ class customGroupBox(QtGui.QGroupBox):
             self.layout().setSpacing(spacing)
 
 
-class customButton(QtGui.QPushButton):
-    def __init__(self, size, iconPath, flatFlag):
-        super(curtomButton, self).__init__()
+class customIconButton(QtGui.QPushButton):
+    def __init__(self, iconPath, size=(40,40), hint=None, flatFlag=False):
+        super(customIconButton, self).__init__()
         self.setFixedSize(size[0],size[1])
         self.setIconSize(QtCore.QSize(100,100))
-        self.setIcon(QtGui.QIcon(":/hairCreate.png"))
+        self.setIcon(QtGui.QIcon(iconPath))
         self.setFlat(flatFlag)
+        if hint:
+            self.setToolTip(hint)
 
 
 # luanch window
