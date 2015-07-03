@@ -92,17 +92,16 @@ class nHairToolset(QtGui.QMainWindow):
         # nHair groupBox
         nHairToolBox = customGroupBox('nHair Tools', [200,200], self.style.objectName(), 0, 0, QtGui.QGridLayout())
         nHairToolBox.layout().setAlignment(QtCore.Qt.AlignTop)
-        dummyButton =QtGui.QPushButton()
-        dummyButton.setFixedSize(40,40)
-        dummyButton.setIconSize(QtCore.QSize(100,100))
-        icon = QtGui.QIcon(":/hairCreate.png")
-        icon.pixmap(QtCore.QSize(40,40), QtGui.QIcon.Disabled)
-        dummyButton.setIcon(icon)
-        dummyButton.setFlat(True)
-
+        createHairBtn = customIconButton(':/hairCreate.png',(40,40), 'Create Hair')
+        paintHairBtn = customIconButton(':/hairPaint.png',(40,40), 'Paint Hair Tool')
+        mkDynCurvesBtn = customIconButton(':/hairDynamicCurves.png',(40,40), 'Make Selected Curves Dynamic')
+        interactiveBtn = customIconButton(':/interactivePlayback.png',(40,40), 'Interactive Playback')
 
         # add them to groupBox
-        nHairToolBox.layout().addWidget(dummyButton , 0,0)
+        nHairToolBox.layout().addWidget(createHairBtn, 0,0)
+        nHairToolBox.layout().addWidget(paintHairBtn, 0,1)
+        nHairToolBox.layout().addWidget(mkDynCurvesBtn, 0,2)
+        nHairToolBox.layout().addWidget(interactiveBtn, 0,3)
 
         # add main Widgets to the first tab
         mainControlsLayout.addWidget(rigFxGrpBox)
@@ -161,13 +160,13 @@ class customGroupBox(QtGui.QGroupBox):
             self.layout().setSpacing(spacing)
 
 
-class customIconButton(QtGui.QPushButton):
+class customIconButton(QtGui.QToolButton):
     def __init__(self, iconPath, size=(40,40), hint=None, flatFlag=False):
         super(customIconButton, self).__init__()
         self.setFixedSize(size[0],size[1])
         self.setIconSize(QtCore.QSize(100,100))
         self.setIcon(QtGui.QIcon(iconPath))
-        self.setFlat(flatFlag)
+        #self.setFlat(flatFlag)
         if hint:
             self.setToolTip(hint)
 
