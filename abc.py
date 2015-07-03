@@ -81,6 +81,7 @@ class nHairToolset(QtGui.QMainWindow):
         nucleusOnRadioBtn = QtGui.QRadioButton('On')
         nucleusOffRadioBtn = QtGui.QRadioButton('Off')
         nucleusOnRadioBtn.setChecked(True)
+
         # add widgets to groupBox
         nucleusGroupBox.layout().addWidget(nucleusSateLabel)
         nucleusGroupBox.layout().addItem(QtGui.QSpacerItem(20,2))
@@ -94,7 +95,9 @@ class nHairToolset(QtGui.QMainWindow):
         dummyButton =QtGui.QPushButton()
         dummyButton.setFixedSize(40,40)
         dummyButton.setIconSize(QtCore.QSize(100,100))
-        dummyButton.setIcon(QtGui.QIcon(":/hairCreate.png"))
+        icon = QtGui.QIcon(":/hairCreate.png")
+        icon.pixmap(QtCore.QSize(40,40), QtGui.QIcon.Disabled)
+        dummyButton.setIcon(icon)
         dummyButton.setFlat(True)
 
 
