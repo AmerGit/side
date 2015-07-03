@@ -76,7 +76,7 @@ class nHairToolset(QtGui.QMainWindow):
 
         # little nucleus groupbox
         nucleusGroupBox = customGroupBox('Nucleus', (200, 48), self.style.objectName(), 0, 0, QtGui.QHBoxLayout())
-        nucleusGroupBox.layout().setAlignment(QtCore.Qt.AlignLeft)
+        nucleusGroupBox.layout().setAlignment(QtCore.Qt.AlignCenter)
         nucleusSateLabel = QtGui.QLabel('State: ')
         nucleusOnRadioBtn = QtGui.QRadioButton('On')
         nucleusOffRadioBtn = QtGui.QRadioButton('Off')
@@ -91,14 +91,15 @@ class nHairToolset(QtGui.QMainWindow):
         # nHair groupBox
         nHairToolBox = customGroupBox('nHair Tools', [200,200], self.style.objectName(), 0, 0, QtGui.QGridLayout())
         nHairToolBox.layout().setAlignment(QtCore.Qt.AlignTop)
-        button= QtGui.QPushButton()
-        button.setIconSize(QtCore.QSize(100,100))
-        button.setIcon(QtGui.QIcon(":/hairCreate.png"))
-        button.setFixedSize(40,40)
-        button.setFlat(True)
+        dummyButton =QtGui.QPushButton()
+        dummyButton.setFixedSize(40,40)
+        dummyButton.setIconSize(QtCore.QSize(100,100))
+        dummyButton.setIcon(QtGui.QIcon(":/hairCreate.png"))
+        dummyButton.setFlat(True)
+
 
         # add them to groupBox
-        nHairToolBox.layout().addWidget(button, 0,0)
+        nHairToolBox.layout().addWidget(dummyButton , 0,0)
 
         # add main Widgets to the first tab
         mainControlsLayout.addWidget(rigFxGrpBox)
@@ -158,8 +159,12 @@ class customGroupBox(QtGui.QGroupBox):
 
 
 class customButton(QtGui.QPushButton):
-    def __init__(self):
-        pass
+    def __init__(self, size, iconPath, flatFlag):
+        super(curtomButton, self).__init__()
+        self.setFixedSize(size[0],size[1])
+        self.setIconSize(QtCore.QSize(100,100))
+        self.setIcon(QtGui.QIcon(":/hairCreate.png"))
+        self.setFlat(flatFlag)
 
 
 # luanch window
