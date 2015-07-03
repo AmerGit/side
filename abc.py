@@ -39,8 +39,6 @@ class nHairToolset(QtGui.QMainWindow):
         innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
         centerWidget.layout().addWidget(innerTabs)
 
-        print self.style
-        print type(self.style)
         # first Tab
         mainControlsTab = QtGui.QWidget()
         innerTabs.addTab(mainControlsTab, 'Main Functions')
@@ -49,7 +47,7 @@ class nHairToolset(QtGui.QMainWindow):
         mainControlsTab.setLayout(mainControlsLayout)
 
         # rigFix options group box
-        rigFxGrpBox = customGroupBox('RigFx Options', (180,150), self.style.objectName(), 0, 0)
+        rigFxGrpBox = customGroupBox('RigFx Options', (200,150), self.style.objectName(), 0, 0)
         rigFixNameField = self.createLabeledNameField('Name: ', 'enter a rigFx name...')
         buildRigFxBtn = QtGui.QPushButton('Build RigFx')
         updateSetsBtn = QtGui.QPushButton('Update Sets')
@@ -77,8 +75,8 @@ class nHairToolset(QtGui.QMainWindow):
         nHairGroupsGrpBox.layout().addWidget(nHairGroupWindControlsBtn)
 
         # little nucleus groupbox
-        nucleusGroupBox = customGroupBox('Nucleus', (180, 48), self.style.objectName(), 0, 0, QtGui.QHBoxLayout())
-        nucleusGroupBox.layout().setAlignment(QtCore.Qt.AlignHCenter)
+        nucleusGroupBox = customGroupBox('Nucleus', (200, 48), self.style.objectName(), 0, 0, QtGui.QHBoxLayout())
+        nucleusGroupBox.layout().setAlignment(QtCore.Qt.AlignLeft)
         nucleusSateLabel = QtGui.QLabel('State: ')
         nucleusOnRadioBtn = QtGui.QRadioButton('On')
         nucleusOffRadioBtn = QtGui.QRadioButton('Off')
@@ -90,11 +88,23 @@ class nHairToolset(QtGui.QMainWindow):
         nucleusGroupBox.layout().addItem(QtGui.QSpacerItem(20,2))
         nucleusGroupBox.layout().addWidget(nucleusOffRadioBtn)
 
+        # nHair groupBox
+        nHairToolBox = customGroupBox('nHair Tools', [200,200], self.style.objectName(), 0, 0, QtGui.QGridLayout())
+        nHairToolBox.layout().setAlignment(QtCore.Qt.AlignTop)
+        button= QtGui.QPushButton()
+        button.setIconSize(QtCore.QSize(100,100))
+        button.setIcon(QtGui.QIcon(":/hairCreate.png"))
+        button.setFixedSize(40,40)
+        button.setFlat(True)
+
+        # add them to groupBox
+        nHairToolBox.layout().addWidget(button, 0,0)
+
         # add main Widgets to the first tab
         mainControlsLayout.addWidget(rigFxGrpBox)
         mainControlsLayout.addWidget(nHairGroupsGrpBox)
         mainControlsLayout.addWidget(nucleusGroupBox)
-
+        mainControlsLayout.addWidget(nHairToolBox)
 
         # second tab
         secondaryControlsTab = QtGui.QWidget(innerTabs)
@@ -133,14 +143,23 @@ class customGroupBox(QtGui.QGroupBox):
 
         if title:
             self.setTitle(title)
+
         if dimensions:
             self.setFixedSize(dimensions[0], dimensions[1])
+
         if style:
             self.setStyle(QtGui.QStyleFactory.create(style))
+
         if margin:
             self.layout().setContentsMargins(margin, margin, margin, margin)
+
         if spacing:
             self.layout().setSpacing(spacing)
+
+
+class customButton(QtGui.QPushButton):
+    def __init__(self):
+        pass
 
 
 # luanch window
