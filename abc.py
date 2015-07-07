@@ -48,7 +48,7 @@ class nHairToolset(QtGui.QMainWindow):
         innerTabs.addTab(mainControlsTab, 'Main Functions')
 
         # rigFix options group box
-        rigFxGrpBox = customGroupBox('RigFx Options', (240,150), self.style.objectName(), 0, 0)
+        rigFxGrpBox = customGroupBox('RigFx Options', (240,160), self.style.objectName(), 0, 0)
         rigFixNameField = self.createLabeledNameField('Name: ', 'enter a rigFx name...')
         buildRigFxBtn = QtGui.QPushButton('Build RigFx')
         updateSetsBtn = QtGui.QPushButton('Update Sets')
@@ -61,7 +61,7 @@ class nHairToolset(QtGui.QMainWindow):
         rigFxGrpBox.layout().addStretch(True)
 
         # nHair groups options groupBox
-        nHairGroupsGrpBox = customGroupBox('nHair Groups', (240,340), self.style.objectName(), 0, 0)
+        nHairGroupsGrpBox = customGroupBox('nHair Groups', (240,330), self.style.objectName(), 0, 0)
         nHairGroupList = QtGui.QListWidget()
         nHairGroupCreationField = self.createLabeledNameField('Group Name:', 'name your group...')
         nHairGroupCreateBtn = QtGui.QPushButton('Create')
@@ -76,7 +76,7 @@ class nHairToolset(QtGui.QMainWindow):
         nHairGroupsGrpBox.layout().addWidget(nHairGroupControlsBtn)
         nHairGroupsGrpBox.layout().addWidget(nHairGroupWindControlsBtn)
 
-        # little nucleus groupbox
+        # little nucleus groupboxer
         nucleusGroupBox = customGroupBox('Nucleus', (240, 48), self.style.objectName(), 0, 0, QtGui.QHBoxLayout())
         nucleusGroupBox.layout().setAlignment(QtCore.Qt.AlignCenter)
         nucleusSateLabel = QtGui.QLabel('State: ')
@@ -100,6 +100,8 @@ class nHairToolset(QtGui.QMainWindow):
         currentPosDispBtn = customIconButton(':/hairDisplayCurrent.png',(40,40), 'Display Current Position')
         startPosDispBtn =  customIconButton(':/hairDisplayStart.png',(40,40), 'Display Start Position')
         restPosDispBtn =  customIconButton(':/hairDisplayRest.png',(40,40), 'Display Rest Position')
+        nCacheCreateBtn = customIconButton(':/nClothCacheCreate.png',(40,40), 'Display Rest Position')
+        nCacheDeleteBtn = customIconButton(':/nClothCacheDelete.png',(40,40), 'Display Rest Position')
         # add them to groupBox
         nHairToolBox.layout().addWidget(createHairBtn, 0,0)
         nHairToolBox.layout().addWidget(paintHairBtn, 0,1)
@@ -108,7 +110,8 @@ class nHairToolset(QtGui.QMainWindow):
         nHairToolBox.layout().addWidget(currentPosDispBtn, 0,4)
         nHairToolBox.layout().addWidget(startPosDispBtn, 1,0)
         nHairToolBox.layout().addWidget(restPosDispBtn, 1,1)
-
+        nHairToolBox.layout().addWidget(nCacheCreateBtn, 1,2)
+        nHairToolBox.layout().addWidget(nCacheDeleteBtn, 1,3)
         # add the first column widgets to the corresponding layout
         mainTabColumn1_Layout.addWidget(rigFxGrpBox)
         mainTabColumn1_Layout.addWidget(nHairGroupsGrpBox)
@@ -121,19 +124,19 @@ class nHairToolset(QtGui.QMainWindow):
         mainTabColumn2_Layout.setAlignment(QtCore.Qt.AlignTop)
 
         # control list set
-        controlsGroupBox = customGroupBox('Controls', (200, 160), self.style.objectName())
+        controlsGroupBox = customGroupBox('Controls', (220, 160), self.style.objectName())
         controlList = QtGui.QListWidget()
         # add the control list to the groupbox
         controlsGroupBox.layout().addWidget(controlList)
 
         # dynamic node list
-        dynamicNodesGroupBox = customGroupBox('Dynamic nodes', (200, 160), self.style.objectName())
+        dynamicNodesGroupBox = customGroupBox('Dynamic nodes', (220, 160), self.style.objectName())
         dynamicNodeList = QtGui.QListWidget()
         # add the dynamic node list to the groupbox
         dynamicNodesGroupBox.layout().addWidget(dynamicNodeList)
 
         # collider and constraint nodes list
-        colConstGroupBox = customGroupBox('Colliders and Consraints', (200, 160), self.style.objectName())
+        colConstGroupBox = customGroupBox('Colliders and Consraints', (220, 160), self.style.objectName())
         colConstNodeList = QtGui.QListWidget()
         # add the colliders and constraints list to the groupbox
         colConstGroupBox.layout().addWidget(colConstNodeList)
@@ -152,6 +155,7 @@ class nHairToolset(QtGui.QMainWindow):
 
         # add the main tab columns to the first tab
         mainControlsTab.layout().addLayout(mainTabColumn1_Layout)
+        mainControlsTab.layout().addItem(QtGui.QSpacerItem(20,0))
         mainControlsTab.layout().addLayout(mainTabColumn2_Layout)
 
         # second tab
@@ -226,7 +230,7 @@ if __name__ == '__main__':
     # shot = os.environ['SHOT']
     # windowTitle = 'Hair Toolset %s%s'%(job, %shot)
     windowTitle = 'Hair Toolset'
-    nHairWindow = nHairToolset('nHairWindow',windowTitle, [600,840])
+    nHairWindow = nHairToolset('nHairWindow',windowTitle, [520,840])
     nHairWindow.centerWindow()
     nHairWindow.show()
     
