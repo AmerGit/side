@@ -100,8 +100,8 @@ class nHairToolset(QtGui.QMainWindow):
         currentPosDispBtn = customIconButton(':/hairDisplayCurrent.png',(40,40), 'Display Current Position')
         startPosDispBtn =  customIconButton(':/hairDisplayStart.png',(40,40), 'Display Start Position')
         restPosDispBtn =  customIconButton(':/hairDisplayRest.png',(40,40), 'Display Rest Position')
-        nCacheCreateBtn = customIconButton(':/nClothCacheCreate.png',(40,40), 'Display Rest Position')
-        nCacheDeleteBtn = customIconButton(':/nClothCacheDelete.png',(40,40), 'Display Rest Position')
+        nCacheCreateBtn = customIconButton(':/nClothCacheCreate.png',(40,40), 'Create nCache')
+        nCacheDeleteBtn = customIconButton(':/nClothCacheDelete.png',(40,40), 'Delete nCache')
         # add them to groupBox
         nHairToolBox.layout().addWidget(createHairBtn, 0,0)
         nHairToolBox.layout().addWidget(paintHairBtn, 0,1)
@@ -233,4 +233,3 @@ if __name__ == '__main__':
     nHairWindow = nHairToolset('nHairWindow',windowTitle, [520,840])
     nHairWindow.centerWindow()
     nHairWindow.show()
-    
