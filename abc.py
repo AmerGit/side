@@ -60,7 +60,7 @@ class nHairToolset(QtGui.QMainWindow):
         rigFxGrpBox.layout().addStretch(True)
 
         # nHair groups options groupBox
-        nHairGroupsGrpBox = customGroupBox('nHair Groups', (200,300), self.style.objectName(), 0, 0)
+        nHairGroupsGrpBox = customGroupBox('nHair Groups', (200,340), self.style.objectName(), 0, 0)
         nHairGroupList = QtGui.QListWidget()
         nHairGroupCreationField = self.createLabeledNameField('Group Name:', 'name your group...')
         nHairGroupCreateBtn = QtGui.QPushButton('Create')
@@ -71,6 +71,7 @@ class nHairToolset(QtGui.QMainWindow):
         nHairGroupsGrpBox.layout().addWidget(nHairGroupList)
         nHairGroupsGrpBox.layout().addLayout(nHairGroupCreationField)
         nHairGroupsGrpBox.layout().addWidget(nHairGroupCreateBtn)
+        nHairGroupsGrpBox.layout().addWidget(nHairGroupDeleteBtn)
         nHairGroupsGrpBox.layout().addWidget(nHairGroupControlsBtn)
         nHairGroupsGrpBox.layout().addWidget(nHairGroupWindControlsBtn)
 
@@ -81,7 +82,6 @@ class nHairToolset(QtGui.QMainWindow):
         nucleusOnRadioBtn = QtGui.QRadioButton('On')
         nucleusOffRadioBtn = QtGui.QRadioButton('Off')
         nucleusOnRadioBtn.setChecked(True)
-
         # add widgets to groupBox
         nucleusGroupBox.layout().addWidget(nucleusSateLabel)
         nucleusGroupBox.layout().addItem(QtGui.QSpacerItem(20,2))
@@ -96,12 +96,17 @@ class nHairToolset(QtGui.QMainWindow):
         paintHairBtn = customIconButton(':/hairPaint.png',(40,40), 'Paint Hair Tool')
         mkDynCurvesBtn = customIconButton(':/hairDynamicCurves.png',(40,40), 'Make Selected Curves Dynamic')
         interactiveBtn = customIconButton(':/interactivePlayback.png',(40,40), 'Interactive Playback')
-
+        currentPosDispBtn = customIconButton(':/hairDisplayCurrent.png',(40,40), 'Display Current Position')
+        startPosDispBtn =  customIconButton(':/hairDisplayStart.png',(40,40), 'Display Start Position')
+        restPosDispBtn =  customIconButton(':/hairDisplayRest.png',(40,40), 'Display Rest Position')
         # add them to groupBox
         nHairToolBox.layout().addWidget(createHairBtn, 0,0)
         nHairToolBox.layout().addWidget(paintHairBtn, 0,1)
         nHairToolBox.layout().addWidget(mkDynCurvesBtn, 0,2)
         nHairToolBox.layout().addWidget(interactiveBtn, 0,3)
+        nHairToolBox.layout().addWidget(currentPosDispBtn, 1,0)
+        nHairToolBox.layout().addWidget(startPosDispBtn, 1,1)
+        nHairToolBox.layout().addWidget(restPosDispBtn, 1,2)
 
         # add main Widgets to the first tab
         mainControlsLayout.addWidget(rigFxGrpBox)
@@ -161,12 +166,11 @@ class customGroupBox(QtGui.QGroupBox):
 
 
 class customIconButton(QtGui.QToolButton):
-    def __init__(self, iconPath, size=(40,40), hint=None, flatFlag=False):
+    def __init__(self, iconPath, size=(40,40), hint=None):
         super(customIconButton, self).__init__()
         self.setFixedSize(size[0],size[1])
         self.setIconSize(QtCore.QSize(100,100))
         self.setIcon(QtGui.QIcon(iconPath))
-        #self.setFlat(flatFlag)
         if hint:
             self.setToolTip(hint)
 
@@ -183,6 +187,6 @@ if __name__ == '__main__':
     # shot = os.environ['SHOT']
     # windowTitle = 'Hair Toolset %s%s'%(job, %shot)
     windowTitle = 'Hair Toolset'
-    nHairWindow = nHairToolset('nHairWindow',windowTitle, [600,800])
+    nHairWindow = nHairToolset('nHairWindow',windowTitle, [600,840])
     nHairWindow.centerWindow()
     nHairWindow.show()
