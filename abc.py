@@ -5,31 +5,37 @@ import shiboken
 import os
 
 def getMayaMainPtr():
+    """
+        function that grabs the pointer to the maya main window for parenting other widgets under it
+    """
     ptr = OpenMayaUI.MQtUtil.mainWindow()
     return shiboken.wrapInstance(long(ptr), QtGui.QWidget)
 
 
 class nHairToolset(QtGui.QMainWindow):
     def __init__(self, windowId, windowTitle, windowDimensions):
-
+        """
+        initialization method use to create an instance of the window
+        @param windowId: used to identify the window to check for existence
+        @param windowTitle: title for the window, which will normally be the job and shot info
+        @param windowDimensions: tuple or list with width and height
+        @return:None
+        """
         # initialize main window features
         super(nHairToolset, self).__init__(getMayaMainPtr())
         self.setObjectName(windowId)
         self.setWindowTitle(windowTitle)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setFixedSize(windowDimensions[0], windowDimensions[1])
-
         # style setup
         self.style = QtGui.QStyleFactory.create('plastique')
         self.setStyle(self.style)
 
         # add layout and widgets
         centerWidget = QtGui.QWidget(self)
-        self.setCentralWidget(centerWidget)
-
         # setup central widget to hold all elements
         centerWidget.setLayout(QtGui.QVBoxLayout(centerWidget))
-        #centerWidget.layout().setContentsMargins(0,0,0,0)
+        self.setCentralWidget(centerWidget)
 
         # create the tabwidget to hold the tabs
         innerTabs = QtGui.QTabWidget()
@@ -164,6 +170,10 @@ class nHairToolset(QtGui.QMainWindow):
 
 
     def centerWindow(self):
+        """
+        method that places an instance object in the center
+        @return: NONE
+        """
         framegeo = self.frameGeometry()
         center = QtGui.QDesktopWidget().availableGeometry().center()
         framegeo.moveCenter(center)
@@ -171,6 +181,12 @@ class nHairToolset(QtGui.QMainWindow):
 
 
     def createLabeledNameField(self, labelText, placeHolder=None):
+        """
+        method that automates the creation of a text feild with a label placed to its left
+        @param labelText: name for the label
+        @param placeHolder: placeholder text for the field widget
+        @return: horizontal layout that contains the title and field
+        """
         # create horizontal layout to fit both items
         holderLayout = QtGui.QHBoxLayout()
         # create actual the fields
@@ -179,6 +195,7 @@ class nHairToolset(QtGui.QMainWindow):
         if placeHolder:
             nameField.setPlaceholderText(placeHolder)
 
+        # add widgets to layout
         holderLayout.addWidget(label)
         holderLayout.addWidget(nameField)
         return holderLayout
@@ -228,8 +245,9 @@ if __name__ == '__main__':
     # get shot info
     # job = os.environ['JOB']
     # shot = os.environ['SHOT']
-    # windowTitle = 'Hair Toolset %s%s'%(job, %shot)
-    windowTitle = 'Hair Toolset'
-    nHairWindow = nHairToolset('nHairWindow',windowTitle, [520,840])
+    # title = 'Hair Toolset %s%s'%(job, %shot)
+    title = 'Hair Toolset'
+    nHairWindow = nHairToolset('nHairWindow', title, [520,840])
     nHairWindow.centerWindow()
     nHairWindow.show()
+    
