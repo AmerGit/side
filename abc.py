@@ -38,11 +38,12 @@ class nHairToolset(QtGui.QMainWindow):
         innerTabs = QtGui.QTabWidget()
         innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
         centerWidget.layout().addWidget(innerTabs)
-        
+
         # first Tab
         mainControlsTab = QtGui.QWidget()
         mainControlsTab.setLayout(QtGui.QHBoxLayout())
-        
+        mainControlsTab.layout().setAlignment(QtCore.Qt.AlignLeft)
+        mainControlsTab.layout()
         #----------------------------------------------------------------------------------------------------------#
         # first column for the main tab
         mainTabColumn1_Layout = QtGui.QVBoxLayout()
@@ -50,7 +51,7 @@ class nHairToolset(QtGui.QMainWindow):
         innerTabs.addTab(mainControlsTab, 'Main Functions')
 
         # rigFix options group box
-        rigFxGrpBox = customGroupBox('RigFx Options', (200,150), self.style.objectName(), 0, 0)
+        rigFxGrpBox = customGroupBox('RigFx Options', (240,150), self.style.objectName(), 0, 0)
         rigFixNameField = self.createLabeledNameField('Name: ', 'enter a rigFx name...')
         buildRigFxBtn = QtGui.QPushButton('Build RigFx')
         updateSetsBtn = QtGui.QPushButton('Update Sets')
@@ -63,7 +64,7 @@ class nHairToolset(QtGui.QMainWindow):
         rigFxGrpBox.layout().addStretch(True)
 
         # nHair groups options groupBox
-        nHairGroupsGrpBox = customGroupBox('nHair Groups', (200,340), self.style.objectName(), 0, 0)
+        nHairGroupsGrpBox = customGroupBox('nHair Groups', (240,340), self.style.objectName(), 0, 0)
         nHairGroupList = QtGui.QListWidget()
         nHairGroupCreationField = self.createLabeledNameField('Group Name:', 'name your group...')
         nHairGroupCreateBtn = QtGui.QPushButton('Create')
@@ -79,7 +80,7 @@ class nHairToolset(QtGui.QMainWindow):
         nHairGroupsGrpBox.layout().addWidget(nHairGroupWindControlsBtn)
 
         # little nucleus groupbox
-        nucleusGroupBox = customGroupBox('Nucleus', (200, 48), self.style.objectName(), 0, 0, QtGui.QHBoxLayout())
+        nucleusGroupBox = customGroupBox('Nucleus', (240, 48), self.style.objectName(), 0, 0, QtGui.QHBoxLayout())
         nucleusGroupBox.layout().setAlignment(QtCore.Qt.AlignCenter)
         nucleusSateLabel = QtGui.QLabel('State: ')
         nucleusOnRadioBtn = QtGui.QRadioButton('On')
@@ -93,7 +94,7 @@ class nHairToolset(QtGui.QMainWindow):
         nucleusGroupBox.layout().addWidget(nucleusOffRadioBtn)
 
         # nHair groupBox
-        nHairToolBox = customGroupBox('nHair Tools', [200,200], self.style.objectName(), 0, 0, QtGui.QGridLayout())
+        nHairToolBox = customGroupBox('nHair Tools', [240,200], self.style.objectName(), 0, 0, QtGui.QGridLayout())
         nHairToolBox.layout().setAlignment(QtCore.Qt.AlignTop)
         createHairBtn = customIconButton(':/hairCreate.png',(40,40), 'Create Hair')
         paintHairBtn = customIconButton(':/hairPaint.png',(40,40), 'Paint Hair Tool')
@@ -107,9 +108,9 @@ class nHairToolset(QtGui.QMainWindow):
         nHairToolBox.layout().addWidget(paintHairBtn, 0,1)
         nHairToolBox.layout().addWidget(mkDynCurvesBtn, 0,2)
         nHairToolBox.layout().addWidget(interactiveBtn, 0,3)
-        nHairToolBox.layout().addWidget(currentPosDispBtn, 1,0)
-        nHairToolBox.layout().addWidget(startPosDispBtn, 1,1)
-        nHairToolBox.layout().addWidget(restPosDispBtn, 1,2)
+        nHairToolBox.layout().addWidget(currentPosDispBtn, 0,4)
+        nHairToolBox.layout().addWidget(startPosDispBtn, 1,0)
+        nHairToolBox.layout().addWidget(restPosDispBtn, 1,1)
 
         # add the first column widgets to the corresponding layout
         mainTabColumn1_Layout.addWidget(rigFxGrpBox)
@@ -118,25 +119,42 @@ class nHairToolset(QtGui.QMainWindow):
         mainTabColumn1_Layout.addWidget(nHairToolBox)
 
         #----------------------------------------------------------------------------------------------------------#
-        # second colum for the main tab
+        # second column for the main tab
         mainTabColumn2_Layout = QtGui.QVBoxLayout()
         mainTabColumn2_Layout.setAlignment(QtCore.Qt.AlignTop)
-        # controls list set
-        controlsGroupBox = customGroupBox('Controls', (180, 200), self.style.objectName())
+
+        # control list set
+        controlsGroupBox = customGroupBox('Controls', (200, 140), self.style.objectName())
         controlList = QtGui.QListWidget()
         # add the control list to the groupbox
         controlsGroupBox.layout().addWidget(controlList)
 
-        dynamicNodesGroupBox = customGroupBox('Dynamic nodes', (180, 200), self.style.objectName())
+        # dynamic node list
+        dynamicNodesGroupBox = customGroupBox('Dynamic nodes', (200, 140), self.style.objectName())
         dynamicNodeList = QtGui.QListWidget()
-        # add the control list to the groupbox
+        # add the dynamic node list to the groupbox
         dynamicNodesGroupBox.layout().addWidget(dynamicNodeList)
+
+        # collider and constraint nodes list
+        colConstGroupBox = customGroupBox('Colliders and Consraints', (200, 140), self.style.objectName())
+        colConstNodeList = QtGui.QListWidget()
+        # add the colliders and constraints list to the groupbox
+        colConstGroupBox.layout().addWidget(colConstNodeList)
+
+        # force nodes list
+        forcesGroupBox = customGroupBox('Colliders and Consraints', (200, 140), self.style.objectName())
+        forcesNodeList = QtGui.QListWidget()
+        # add the force list to the groupbox
+        forcesGroupBox.layout().addWidget(forcesNodeList)
 
         # add the second column widgets to the second column
         mainTabColumn2_Layout.addWidget(controlsGroupBox)
         mainTabColumn2_Layout.addWidget(dynamicNodesGroupBox)
+        mainTabColumn2_Layout.addWidget(colConstGroupBox)
+        mainTabColumn2_Layout.addWidget(forcesGroupBox)
+
         #----------------------------------------------------------------------------------------------------------#
-        
+
         # add the main tab columns to the first tab
         mainControlsTab.layout().addLayout(mainTabColumn1_Layout)
         mainControlsTab.layout().addLayout(mainTabColumn2_Layout)
@@ -205,10 +223,9 @@ class customIconButton(QtGui.QToolButton):
 # luanch window
 if __name__ == '__main__':
     try:
-        nHairWindow.show()
+        nHairWindow.close()
     except:
         pass
-
     # get shot info
     # job = os.environ['JOB']
     # shot = os.environ['SHOT']
@@ -217,3 +234,4 @@ if __name__ == '__main__':
     nHairWindow = nHairToolset('nHairWindow',windowTitle, [600,840])
     nHairWindow.centerWindow()
     nHairWindow.show()
+    
