@@ -1,8 +1,5 @@
-from maya import cmds
-from maya import OpenMaya
-from maya import OpenMayaUI
-from PySide import QtGui
-from PySide import QtCore
+from maya import cmds, OpenMaya, OpenMayaUI
+from PySide import QtGui, QtCore
 from functools import partial
 import shiboken
 import os
@@ -124,35 +121,33 @@ class nHairToolset(QtGui.QMainWindow):
         mainTabColumn2_Layout.setAlignment(QtCore.Qt.AlignTop)
 
         # control list set
-        controlsGroupBox = customGroupBox('Controls', (200, 140), self.style.objectName())
+        controlsGroupBox = customGroupBox('Controls', (200, 160), self.style.objectName())
         controlList = QtGui.QListWidget()
         # add the control list to the groupbox
         controlsGroupBox.layout().addWidget(controlList)
 
         # dynamic node list
-        dynamicNodesGroupBox = customGroupBox('Dynamic nodes', (200, 140), self.style.objectName())
+        dynamicNodesGroupBox = customGroupBox('Dynamic nodes', (200, 160), self.style.objectName())
         dynamicNodeList = QtGui.QListWidget()
         # add the dynamic node list to the groupbox
         dynamicNodesGroupBox.layout().addWidget(dynamicNodeList)
 
         # collider and constraint nodes list
-        colConstGroupBox = customGroupBox('Colliders and Consraints', (200, 140), self.style.objectName())
+        colConstGroupBox = customGroupBox('Colliders and Consraints', (200, 160), self.style.objectName())
         colConstNodeList = QtGui.QListWidget()
         # add the colliders and constraints list to the groupbox
         colConstGroupBox.layout().addWidget(colConstNodeList)
 
-        # force nodes list
-        forcesGroupBox = customGroupBox('Colliders and Consraints', (200, 140), self.style.objectName())
-        forcesNodeList = QtGui.QListWidget()
-        # add the force list to the groupbox
-        forcesGroupBox.layout().addWidget(forcesNodeList)
+        ## force nodes list
+        #forcesGroupBox = customGroupBox('Forces', (200, 140), self.style.objectName())
+        #forcesNodeList = QtGui.QListWidget()
+        ## add the force list to the groupbox
+        #forcesGroupBox.layout().addWidget(forcesNodeList)
 
         # add the second column widgets to the second column
         mainTabColumn2_Layout.addWidget(controlsGroupBox)
         mainTabColumn2_Layout.addWidget(dynamicNodesGroupBox)
         mainTabColumn2_Layout.addWidget(colConstGroupBox)
-        mainTabColumn2_Layout.addWidget(forcesGroupBox)
-
         #----------------------------------------------------------------------------------------------------------#
 
         # add the main tab columns to the first tab
