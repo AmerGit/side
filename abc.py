@@ -6,7 +6,7 @@ import os
 
 def getMayaMainPtr():
     """
-        function that grabs the pointer to the maya main window for parenting other widgets under it
+    function that grabs the pointer to the maya main window for parenting other widgets under it
     """
     ptr = OpenMayaUI.MQtUtil.mainWindow()
     return shiboken.wrapInstance(long(ptr), QtGui.QWidget)
@@ -16,6 +16,7 @@ class nHairToolset(QtGui.QMainWindow):
     def __init__(self, windowId, windowTitle, windowDimensions):
         """
         initialization method use to create an instance of the window
+        
         @param windowId: used to identify the window to check for existence
         @param windowTitle: title for the window, which will normally be the job and shot info
         @param windowDimensions: tuple or list with width and height
@@ -53,7 +54,7 @@ class nHairToolset(QtGui.QMainWindow):
         mainTabColumn1_Layout.setAlignment(QtCore.Qt.AlignTop)
         innerTabs.addTab(mainControlsTab, 'Main Functions')
 
-        # rigFix options group box
+        # rigFix options groupBox
         rigFxGrpBox = customGroupBox('RigFx Options', (240,160), self.style.objectName(), 0, 0)
         rigFixNameField = self.createLabeledNameField('Name: ', 'enter a rigFx name...')
         buildRigFxBtn = QtGui.QPushButton('Build RigFx')
@@ -172,6 +173,7 @@ class nHairToolset(QtGui.QMainWindow):
     def centerWindow(self):
         """
         method that places an instance object in the center
+        
         @return: NONE
         """
         framegeo = self.frameGeometry()
@@ -183,6 +185,7 @@ class nHairToolset(QtGui.QMainWindow):
     def createLabeledNameField(self, labelText, placeHolder=None):
         """
         method that automates the creation of a text feild with a label placed to its left
+        
         @param labelText: name for the label
         @param placeHolder: placeholder text for the field widget
         @return: horizontal layout that contains the title and field
@@ -202,13 +205,20 @@ class nHairToolset(QtGui.QMainWindow):
 
 
 class customGroupBox(QtGui.QGroupBox):
-    def __init__(self, title=None, dimensions=None, style=None, spacing=None, margin=None, layout=None):
+    def __init__(self, title=None, dimensions=None, style=None, spacing=None, margin=None, layout=QtGui.QVBoxLayout()):
+        """
+        creates and sets up a custom groupBox with all the needed attributes
+        
+        @param title: name to show on top side of groupbox
+        @param dimensions: tuple or list for width and height
+        @param style: style object, will usually pass the one from the parent
+        @param spacing: spacing between subwidgets inside the groupBox's main layout
+        @param margin: single margin size for all 4 sides
+        @param layout: QLayout object, will be verticle by default
+        @return: NONE
+        """
         super(customGroupBox, self).__init__()
-
-        if layout:
-            self.setLayout(layout)
-        else:
-            self.setLayout(QtGui.QVBoxLayout())
+        self.setLayout(layout)
 
         if title:
             self.setTitle(title)
@@ -228,6 +238,14 @@ class customGroupBox(QtGui.QGroupBox):
 
 class customIconButton(QtGui.QToolButton):
     def __init__(self, iconPath, size=(40,40), hint=None):
+        """
+        quickly creates a button with an icon and tooltip
+        
+        @param iconPath: location for the icon
+        @param size: tuple or list containg the width and height
+        @param hint: label for the annotation to display while hovering over the button
+        @return: NONE
+        """
         super(customIconButton, self).__init__()
         self.setFixedSize(size[0],size[1])
         self.setIconSize(QtCore.QSize(100,100))
@@ -236,7 +254,7 @@ class customIconButton(QtGui.QToolButton):
             self.setToolTip(hint)
 
 
-# luanch window
+# launch window
 if __name__ == '__main__':
     try:
         nHairWindow.close()
@@ -250,4 +268,3 @@ if __name__ == '__main__':
     nHairWindow = nHairToolset('nHairWindow', title, [520,840])
     nHairWindow.centerWindow()
     nHairWindow.show()
-    
