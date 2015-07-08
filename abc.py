@@ -1,3 +1,8 @@
+"""
+Class used to create and setup the UI for the nHair RigFx toolset. The majortiy of the heavy maya tasks that UI will
+take care of will be handled in a separate file (nHairUtils) in order to separate the design/layout and UI functionality
+from the core functionality.
+"""
 from maya import cmds, OpenMaya, OpenMayaUI
 from PySide import QtGui, QtCore
 from functools import partial
