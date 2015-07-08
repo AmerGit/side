@@ -31,6 +31,7 @@ class nHairToolset(QtGui.QMainWindow):
         self.setWindowTitle(windowTitle)
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setFixedSize(windowDimensions[0], windowDimensions[1])
+        self.centerWindow()
         # style setup
         self.style = QtGui.QStyleFactory.create('plastique')
         self.setStyle(self.style)
