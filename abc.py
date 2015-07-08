@@ -259,5 +259,5 @@ class customIconButton(QtGui.QToolButton):
 # job = os.environ['JOB']
 # shot = os.environ['SHOT']
 # title = 'Hair Toolset %s%s'%(job, %shot)
-nHairWindow = nHairToolset('nHairWindow', test, [520,840])
-nHairWindow.show()
+# nHairWindow = nHairToolset('nHairWindow', test, [520,840])
+# nHairWindow.show()
