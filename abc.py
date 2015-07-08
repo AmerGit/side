@@ -2,7 +2,6 @@ from maya import cmds, OpenMaya, OpenMayaUI
 from PySide import QtGui, QtCore
 from functools import partial
 import shiboken
-import os
 
 def getMayaMainPtr():
     """
@@ -22,6 +21,10 @@ class nHairToolset(QtGui.QMainWindow):
         @param windowDimensions: tuple or list with width and height
         @return:None
         """
+        # check if another copy of the window exists
+        if cmds.window(windowId, exists=True):
+            cmds.deleteUI(windowId)
+
         # initialize main window features
         super(nHairToolset, self).__init__(getMayaMainPtr())
         self.setObjectName(windowId)
@@ -38,7 +41,7 @@ class nHairToolset(QtGui.QMainWindow):
         centerWidget.setLayout(QtGui.QVBoxLayout(centerWidget))
         self.setCentralWidget(centerWidget)
 
-        # create the tabwidget to hold the tabs
+        # create the tab widget to hold the tabs
         innerTabs = QtGui.QTabWidget()
         innerTabs.setFocusPolicy(QtCore.Qt.NoFocus)
         centerWidget.layout().addWidget(innerTabs)
@@ -251,18 +254,10 @@ class customIconButton(QtGui.QToolButton):
         if hint:
             self.setToolTip(hint)
 
-
-# luanch window
-if __name__ == '__main__':
-    try:
-        nHairWindow.close()
-    except:
-        pass
-    # get shot info
-    # job = os.environ['JOB']
-    # shot = os.environ['SHOT']
-    # title = 'Hair Toolset %s%s'%(job, %shot)
-    title = 'Hair Toolset'
-    nHairWindow = nHairToolset('nHairWindow', title, [520,840])
-    nHairWindow.centerWindow()
-    nHairWindow.show()
+# launch the interface
+# get shot info
+# job = os.environ['JOB']
+# shot = os.environ['SHOT']
+# title = 'Hair Toolset %s%s'%(job, %shot)
+nHairWindow = nHairToolset('nHairWindow', test, [520,840])
+nHairWindow.show()
