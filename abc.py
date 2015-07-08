@@ -6,7 +6,7 @@ import os
 
 def getMayaMainPtr():
     """
-    function that grabs the pointer to the maya main window for parenting other widgets under it
+        function that grabs the pointer to the maya main window for parenting other widgets under it
     """
     ptr = OpenMayaUI.MQtUtil.mainWindow()
     return shiboken.wrapInstance(long(ptr), QtGui.QWidget)
@@ -54,7 +54,7 @@ class nHairToolset(QtGui.QMainWindow):
         mainTabColumn1_Layout.setAlignment(QtCore.Qt.AlignTop)
         innerTabs.addTab(mainControlsTab, 'Main Functions')
 
-        # rigFix options groupBox
+        # rigFix options group box
         rigFxGrpBox = customGroupBox('RigFx Options', (240,160), self.style.objectName(), 0, 0)
         rigFixNameField = self.createLabeledNameField('Name: ', 'enter a rigFx name...')
         buildRigFxBtn = QtGui.QPushButton('Build RigFx')
@@ -109,6 +109,7 @@ class nHairToolset(QtGui.QMainWindow):
         restPosDispBtn =  customIconButton(':/hairDisplayRest.png',(40,40), 'Display Rest Position')
         nCacheCreateBtn = customIconButton(':/nClothCacheCreate.png',(40,40), 'Create nCache')
         nCacheDeleteBtn = customIconButton(':/nClothCacheDelete.png',(40,40), 'Delete nCache')
+        passiveColliderBtn = customIconButton(':/nClothCreatePassive.png',(40,40), 'Delete nCache')
         # add them to groupBox
         nHairToolBox.layout().addWidget(createHairBtn, 0,0)
         nHairToolBox.layout().addWidget(paintHairBtn, 0,1)
@@ -119,6 +120,7 @@ class nHairToolset(QtGui.QMainWindow):
         nHairToolBox.layout().addWidget(restPosDispBtn, 1,1)
         nHairToolBox.layout().addWidget(nCacheCreateBtn, 1,2)
         nHairToolBox.layout().addWidget(nCacheDeleteBtn, 1,3)
+        nHairToolBox.layout().addWidget(passiveColliderBtn, 1,4)
         # add the first column widgets to the corresponding layout
         mainTabColumn1_Layout.addWidget(rigFxGrpBox)
         mainTabColumn1_Layout.addWidget(nHairGroupsGrpBox)
@@ -205,7 +207,7 @@ class nHairToolset(QtGui.QMainWindow):
 
 
 class customGroupBox(QtGui.QGroupBox):
-    def __init__(self, title=None, dimensions=None, style=None, spacing=None, margin=None, layout=QtGui.QVBoxLayout()):
+    def __init__(self, title=None, dimensions=None, style=None, spacing=None, margin=None, layout=None):
         """
         creates and sets up a custom groupBox with all the needed attributes
 
@@ -218,7 +220,11 @@ class customGroupBox(QtGui.QGroupBox):
         @return: NONE
         """
         super(customGroupBox, self).__init__()
-        self.setLayout(layout)
+
+        if layout:
+            self.setLayout(layout)
+        else:
+            self.setLayout(QtGui.QVBoxLayout())
 
         if title:
             self.setTitle(title)
@@ -238,14 +244,6 @@ class customGroupBox(QtGui.QGroupBox):
 
 class customIconButton(QtGui.QToolButton):
     def __init__(self, iconPath, size=(40,40), hint=None):
-        """
-        quickly creates a button with an icon and tooltip
-
-        @param iconPath: location for the icon
-        @param size: tuple or list containg the width and height
-        @param hint: label for the annotation to display while hovering over the button
-        @return: NONE
-        """
         super(customIconButton, self).__init__()
         self.setFixedSize(size[0],size[1])
         self.setIconSize(QtCore.QSize(100,100))
@@ -254,7 +252,7 @@ class customIconButton(QtGui.QToolButton):
             self.setToolTip(hint)
 
 
-# launch window
+# luanch window
 if __name__ == '__main__':
     try:
         nHairWindow.close()
