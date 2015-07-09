@@ -1,9 +1,9 @@
 """
-    Class used to create and setup the UI for the nHair RigFx toolset. The majortiy of the heavy maya tasks that UI will
+    Class used to create and setup the UI for the nHair RigFx toolset. The majority of the heavy maya tasks that UI will
     take care of will be handled in a separate file (nHairUtils) in order to separate the design/layout and UI functionality
     from the core functionality.
 """
-from maya import cmds, OpenMaya, OpenMayaUI
+from maya import cmds, OpenMaya, OpenMayaUI, mel
 from PySide import QtGui, QtCore
 from functools import partial
 import shiboken
@@ -19,16 +19,19 @@ def getMayaMainPtr():
 class nHairToolset(QtGui.QMainWindow):
     def __init__(self, windowId, windowTitle, windowDimensions):
         """
-        initialization method use to create an instance of the window
+            initialization method use to create an instance of the window
 
-        @param windowId: used to identify the window to check for existence
-        @param windowTitle: title for the window, which will normally be the job and shot info
-        @param windowDimensions: tuple or list with width and height
-        @return:None
+            @param windowId: used to identify the window to check for existence
+            @param windowTitle: title for the window, which will normally be the job and shot info
+            @param windowDimensions: tuple or list with width and height
+            @return:None
         """
         # check if another copy of the window exists
         if cmds.window(windowId, exists=True):
             cmds.deleteUI(windowId)
+
+        # load furtility
+        mel.eval("ta_loadFurtilityAndMPCSolver()")
 
         # initialize main window features
         super(nHairToolset, self).__init__(getMayaMainPtr())
@@ -130,6 +133,7 @@ class nHairToolset(QtGui.QMainWindow):
         nHairToolBox.layout().addWidget(nCacheCreateBtn, 1,2)
         nHairToolBox.layout().addWidget(nCacheDeleteBtn, 1,3)
         nHairToolBox.layout().addWidget(passiveColliderBtn, 1,4)
+
         # add the first column widgets to the corresponding layout
         mainTabColumn1_Layout.addWidget(rigFxGrpBox)
         mainTabColumn1_Layout.addWidget(nHairGroupsGrpBox)
@@ -218,15 +222,15 @@ class nHairToolset(QtGui.QMainWindow):
 class customGroupBox(QtGui.QGroupBox):
     def __init__(self, title=None, dimensions=None, style=None, spacing=None, margin=None, layout=None):
         """
-        creates and sets up a custom groupBox with all the needed attributes
+            creates and sets up a custom groupBox with all the needed attributes
 
-        @param title: name to show on top side of groupbox
-        @param dimensions: tuple or list for width and height
-        @param style: style object, will usually pass the one from the parent
-        @param spacing: spacing between subwidgets inside the groupBox's main layout
-        @param margin: single margin size for all 4 sides
-        @param layout: QLayout object, will be verticle by default
-        @return: NONE
+            @param title: name to show on top side of groupbox
+            @param dimensions: tuple or list for width and height
+            @param style: style object, will usually pass the one from the parent
+            @param spacing: spacing between subwidgets inside the groupBox's main layout
+            @param margin: single margin size for all 4 sides
+            @param layout: QLayout object, will be vertical by default
+            @return: NONE
         """
         super(customGroupBox, self).__init__()
 
@@ -259,6 +263,26 @@ class customIconButton(QtGui.QToolButton):
         self.setIcon(QtGui.QIcon(iconPath))
         if hint:
             self.setToolTip(hint)
+
+class customGridLayout(QtGui.QGridLayout):
+    def __init__(self, rowCount, columnCount):
+        super(customGridLayout, self).__init__()
+        self.rowCount = rowCount
+        self.columnCount = columnCount
+        self.rowIndex = 0
+        self.columnIndex = 0
+
+    def insertWidget(self, widget):
+        if columnIndex == (columnCount-1):
+
+            self.addWidget(widget, self.rowIndex, self.columIndex)
+
+
+
+
+
+
+
 
 # launch the interface
 # get shot info
